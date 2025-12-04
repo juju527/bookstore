@@ -1,0 +1,103 @@
+# ==============================================
+# 1. 编译产物：目标文件、中间文件、可执行文件
+# ==============================================
+# 目标文件（GCC/Clang）
+*.o
+*.obj
+*.lo
+*.la
+*.a          # 静态库文件
+*.so         # 动态库文件（Linux）
+*.dylib      # 动态库文件（Mac）
+*.dll        # 动态库文件（Windows）
+*.lib        # 静态库文件（Windows）
+
+# 中间编译文件
+*.ii         # 预处理后的 C++ 文件
+*.s          # 汇编文件
+*.d          # 依赖文件（Make/CMake 自动生成）
+*.gch        # GCC 预编译头文件
+*.pdb        # Windows 调试符号文件
+*.idb        # VS 中间调试文件
+*.ilk        # VS 增量链接文件
+
+# 可执行文件（Windows）
+*.exe
+*.exe~
+*.com
+*.scr
+
+# 可执行文件（Linux/Mac）
+a.out        # GCC 默认输出文件
+out          # 常见自定义输出文件名
+# 注意：如果你的可执行文件有固定名称（比如 main），可添加：main
+
+# ==============================================
+# 2. 构建目录（CMake/Make/IDE 自动生成）
+# ==============================================
+build/               # 通用构建目录（手动创建或 CMake 指定）
+cmake-build-*/       # CLion/Qt Creator 自动生成的 CMake 构建目录
+bin/                 # 可执行文件输出目录
+lib/                 # 库文件输出目录
+obj/                 # 目标文件目录（VS/Code::Blocks 等）
+Release/             # VS 发布版目录
+Debug/               # VS 调试版目录
+x64/                 # VS 64位编译目录
+Win32/               # VS 32位编译目录
+.vs/                 # VS 缓存目录
+CMakeCache.txt       # CMake 缓存文件
+CMakeFiles/          # CMake 生成的中间目录
+CMakeScripts/        # CMake 脚本目录
+CTestTestfile.cmake  # CTest 测试文件
+Makefile             # 自动生成的 Makefile（如果手动写的 Makefile 需保留，可加 !Makefile）
+Makefile.in          #  configure 生成的 Makefile 模板
+
+# ==============================================
+# 3. IDE/编辑器配置文件
+# ==============================================
+# Visual Studio
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.suo
+*.sdf
+*.opensdf
+*.aps
+
+# CLion/IntelliJ
+.idea/
+*.iml
+*.iws
+
+# Code::Blocks
+*.cbp
+*.layout
+*.depend
+
+# Qt Creator
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+.qmake.stash
+.qmake.cache
+
+# Vim
+*.swp
+*.swo
+
+# VS Code（如果需要共享配置，可删除以下行）
+.vscode/
+*.code-workspace
+
+# ==============================================
+# 4. 其他杂项
+# ==============================================
+*.log         # 日志文件
+*.txt~        # 临时文本文件
+*.tmp         # 临时文件
+*.cache       # 缓存文件
+.env          # 环境变量文件
+.DS_Store     # Mac 系统隐藏文件
+Thumbs.db     # Windows 缩略图缓存
