@@ -1,8 +1,8 @@
 #ifndef BPT_MEMORYRIVER_HPP
 #define BPT_MEMORYRIVER_HPP
 
-#include <fstream>
-
+#include<fstream>
+#include<iostream>
 using std::string;
 using std::fstream;
 using std::ifstream;
@@ -14,6 +14,7 @@ private:
     fstream file;
     string file_name;
     int sizeofT = sizeof(T);
+    static_assert(sizeof(T) >= sizeof(int));
 public:
     MemoryRiver() = default;
 
@@ -21,7 +22,7 @@ public:
 
     void initialise(string FN = "") {
         if (FN != "") file_name = FN;
-        file.open(file_name, std::ios::out);
+        file.open(file_name, std::ios::out|std::ios::binary);
         int tmp = 0;
         for (int i = 0; i < info_len; ++i)
             file.write(reinterpret_cast<char *>(&tmp), sizeof(int));
@@ -53,10 +54,25 @@ public:
     //位置索引意味着当输入正确的位置索引index，在以下三个函数中都能顺利的找到目标对象进行操作
     //位置索引index可以取为对象写入的起始位置
     int write(T &t) {
-        file.open(file_name,std::ios::app);
-        int index=file.tellp();
+        int head=0;
+        get_info(head,1);
+        file.open(file_name,std::ios::in|std::ios::out|std::ios::binary);
+        int index=0;
+        if(head){
+            index=head,file.seekg(head,std::ios::beg);
+            int nxt=0;file.read(reinterpret_cast<char *>(&nxt),sizeof(int));
+            file.close();
+            write_info(nxt,1);
+            file.open(file_name,std::ios::in|std::ios::out|std::ios::binary);
+            file.seekp(index,std::ios::beg);
+        }
+        else{
+            file.seekp(0,std::ios::end);
+            index=static_cast<int>(file.tellp());
+        }
         file.write(reinterpret_cast<char*>(&t),sizeofT);
         file.close();
+        std::cerr<<index<<" "<<std::endl;
         return index;
     }
 
@@ -79,7 +95,14 @@ public:
     }
 
     //删除位置索引index对应的对象(不涉及空间回收时，可忽略此函数)，保证调用的index都是由write函数产生
-    void Delete(int index) {
+    void Delete(int index){
+        if(index<=0)return ;
+        int head=0;
+        get_info(head,1);
+        file.open(file_name,std::ios::in|std::ios::out|std::ios::binary);
+        file.seekp(index,std::ios::beg),file.write(reinterpret_cast<char*>(&head),sizeof(int));
+        file.close();
+        write_info(index,1);
         return ;
     }
 };
