@@ -101,7 +101,10 @@ public:
         int num=0;
         get_info(num,1);
         if(num>=id)file.seekp(info_len*sizeof(int)+(id-1)*sizeofT);
-        else file.seekp(0,std::ios::end),file.tellp();
+        else{
+            write_info(num+1,1);
+            file.seekp(0,std::ios::end),file.tellp();
+        }
         file.write(reinterpret_cast<char*>(&t),sizeofT);
         return ;
     }
