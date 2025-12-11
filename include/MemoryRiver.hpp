@@ -91,6 +91,21 @@ public:
         return ;
     }
 
+    void readorder(T &t,const int id){
+        file.seekg(info_len*sizeof(int)+(id-1)*sizeofT);
+        file.read(reinterpret_cast<char*>(&t),sizeofT);
+        return ;
+    }
+
+    void writeorder(T t,const int id){
+        int num=0;
+        get_info(num,1);
+        if(num>=id)file.seekp(info_len*sizeof(int)+(id-1)*sizeofT);
+        else file.seekp(0,std::ios::end),file.tellp();
+        file.write(reinterpret_cast<char*>(&t),sizeofT);
+        return ;
+    }
+
     vector<T> query(){
         int len;
         open();get_info(len,1);
