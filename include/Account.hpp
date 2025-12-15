@@ -5,12 +5,14 @@
 #include"String.hpp"
 using std::pair;
 using std::make_pair;
+using std::cerr;
+using std::endl;
 class Account{
 public:
     String30 UserID,Password,Username;
     int Privilege;
-    Account(){}
-    Account(String30 id,String30 psd,String30 name,int pri){UserID=id,Password=psd,Username=name,Privilege;}
+    Account(){Privilege=0;}
+    Account(String30 id,String30 psd,String30 name,int pri){UserID=id,Password=psd,Username=name,Privilege=pri;}
     bool operator <(Account tmp)const{return UserID<tmp.UserID;}
     bool operator ==(Account tmp)const{return UserID==tmp.UserID;}
     friend std::ostream& operator <<(std::ostream &out,const Account &account){
@@ -60,6 +62,7 @@ public:
     }
     bool logout(){
         if(!UserStack.size())return 0;
+        //cerr<<"LOGOUT"<<endl;
         UserStack.pop_back();
         return 1;
     }
@@ -93,7 +96,10 @@ public:
     bool deleteUser(String30 UserID){
         auto res=BL.find(UserID);
         if(!res.size())return 0;
+        //cerr<<"w1\n";
+        //for(int i=0;i<UserStack.size();i++)cerr<<UserStack[i].first<<endl;
         for(int i=0;i<UserStack.size();i++)if(UserStack[i].first.UserID==UserID)return 0;
+        //cerr<<"w2\n";
         BL.del(UserID,res[0]);
         return 1;
     }

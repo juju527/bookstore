@@ -16,10 +16,11 @@ const int operlen=500;
 class Finance{
 public:
     double income,expend;
-    Finance(){}
+    Finance(){income=expend=0;}
     Finance(double inc,double exp){income=inc,expend=exp;}
+    Finance operator -(Finance tmp)const{return (Finance){income-tmp.income,expend-tmp.expend};}
     friend std::ostream& operator <<(std::ostream &out,const Finance &f){
-        out<<f.income<<" "<<f.expend;
+        out<<"+ "<<fixed<<setprecision(2)<<f.income<<" - "<<fixed<<setprecision(2)<<f.expend;
         return out;
     }
 };
@@ -114,8 +115,30 @@ public:
         return ;
     }
     void addLog(String30,int,array<char,operlen>);
+    void showFinance(){
+        financeStorage.open();
+        int num=0;
+        financeStorage.get_info(num,1);
+        cerr<<"!"<<num<<endl;
+        Finance lst;
+        if(num)financeStorage.readorder(lst,num);
+        cout<<lst<<endl;
+        financeStorage.close();
+        return ;
+    }
     bool showFinance(int Count){
-        
+        if(!Count){cout<<endl;return 1;}
+        financeStorage.open();
+        int num=0;
+        financeStorage.get_info(num,1);
+        cerr<<num<<endl;
+        if(Count>num){financeStorage.close();return 0;}
+        Finance R,L;
+        financeStorage.readorder(R,num);
+        if(num-Count)financeStorage.readorder(L,num-Count);
+        cout<<(R-L)<<endl;
+        financeStorage.close();
+        return 1;
     }
     void showFinanceInfo();
     void showEmployeeLog();
