@@ -58,6 +58,13 @@ public:
         if(!res.size())cout<<endl;
         return ;
     }
+    String20 querycur(){
+        books.open();
+        Book ans;
+        books.readorder(ans,current);
+        books.close();
+        return ans.ISBN;
+    }
     void queryISBN(String20 ISBN){
         vector<int> res=BL1.find(ISBN);
         for(auto id:res){
