@@ -46,8 +46,9 @@ Debug/               # VS 调试版目录
 x64/                 # VS 64位编译目录
 Win32/               # VS 32位编译目录
 .vs/                 # VS 缓存目录
-CMakeFiles/          # CMake 生成的中间目录
 CMakeScripts/        # CMake 脚本目录
+CMakeFiles/
+CMakeCache.txt
 CTestTestfile.cmake  # CTest 测试文件
 Makefile             # 自动生成的 Makefile（如果手动写的 Makefile 需保留，可加 !Makefile）
 Makefile.in          #  configure 生成的 Makefile 模板

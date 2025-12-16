@@ -98,7 +98,8 @@ public:
         if(!res.size())return 0;
         //cerr<<"w1\n";
         //for(int i=0;i<UserStack.size();i++)cerr<<UserStack[i].first<<endl;
-        for(int i=0;i<UserStack.size();i++)if(UserStack[i].first.UserID==UserID)return 0;
+        int len=UserStack.size();
+        for(int i=0;i<len;i++)if(UserStack[i].first.UserID==UserID)return 0;
         //cerr<<"w2\n";
         BL.del(UserID,res[0]);
         return 1;

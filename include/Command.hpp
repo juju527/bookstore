@@ -42,17 +42,20 @@ public:
     }
     bool chk1(string s){//UserID, Password
         if(s.size()>30)return 0;
-        for(int i=0;i<s.size();i++)if(!((s[i]>='0'&&s[i]<='9')||(s[i]>='a'&&s[i]<='z')||(s[i]>='A'&&s[i]<='Z')||s[i]=='_'))return 0;
+        int len=s.size();
+        for(int i=0;i<len;i++)if(!((s[i]>='0'&&s[i]<='9')||(s[i]>='a'&&s[i]<='z')||(s[i]>='A'&&s[i]<='Z')||s[i]=='_'))return 0;
         return 1;
     }
     bool chk2(string s){//Username
         if(s.size()>30)return 0;
-        for(int i=0;i<s.size();i++)if(s[i]<32||s[i]>126)return 0;
+        int len=s.size();
+        for(int i=0;i<len;i++)if(s[i]<32||s[i]>126)return 0;
         return 1;
     }
     bool chk3(string s){//Privilege
         if(s.size()>1)return 0;
-        for(int i=0;i<s.size();i++)if(!(s[i]=='1'||s[i]=='3'||s[i]=='7'))return 0;
+        int len=s.size();
+        for(int i=0;i<len;i++)if(!(s[i]=='1'||s[i]=='3'||s[i]=='7'))return 0;
         return 1;
     }
 
@@ -139,22 +142,25 @@ public:
 
     bool chk4(string s){//ISBN
         if(s.size()>20)return 0;
-        for(int i=0;i<s.size();i++)if(s[i]<32||s[i]>126)return 0;
+        int len=s.size();
+        for(int i=0;i<len;i++)if(s[i]<32||s[i]>126)return 0;
         return 1;
     }
     bool chk5(string s){//BookName, Author
         if(s.size()>60)return 0;
-        for(int i=0;i<s.size();i++)if(!(s[i]>=32&&s[i]<=126&&s[i]!=34))return 0;
+        int len=s.size();
+        for(int i=0;i<len;i++)if(!(s[i]>=32&&s[i]<=126&&s[i]!=34))return 0;
         return 1;
     }
     bool chkkey(string s){
         if(s.size()>60)return 0;
-        for(int i=0;i<s.size();i++)if(!(s[i]>=32&&s[i]<=126&&s[i]!=34))return 0;
+        int L=s.size();
+        for(int i=0;i<L;i++)if(!(s[i]>=32&&s[i]<=126&&s[i]!=34))return 0;
         if(s[0]=='|'||s[s.size()-1]=='|')return 0;
-        for(int i=1;i<s.size()-1;i++)if(s[i]=='|'&&s[i+1]=='|')return 0;
+        for(int i=1;i<L-1;i++)if(s[i]=='|'&&s[i+1]=='|')return 0;
         string aux="",str[60];
         int len=0;
-        for(int i=0;i<s.size();i++){
+        for(int i=0;i<L;i++){
             if(s[i]!='|')aux+=s[i];
             else str[++len]=aux,aux="";
         }
@@ -166,7 +172,8 @@ public:
     int chk6(string s){//Quantity,Count
         if(s.size()>10)return -1;
         long long num=0;
-        for(int i=0;i<s.size();i++)if(s[i]<'0'||s[i]>'9')return -1;else num=num*10+s[i]-'0';
+        int len=s.size();
+        for(int i=0;i<len;i++)if(s[i]<'0'||s[i]>'9')return -1;else num=num*10+s[i]-'0';
         if(num>2147483647)return -1;
         return num;
     }
@@ -206,7 +213,9 @@ public:
         if(!chk4(ISBN)||num==-1){Invalid();return ;}
         double v=book.buy(ISBN,num);
         if(v==-1.0){Invalid();return ;}
-        array<char,operlen> tmp;for(int i=0;i<oper.size();i++)tmp[i]=oper[i];
+        array<char,operlen> tmp;
+        int len=oper.size();
+        for(int i=0;i<len;i++)tmp[i]=oper[i];
         log.addFinance(v,0,account.getAccount().UserID,oper.size(),tmp);
         return ;
     }
