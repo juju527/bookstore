@@ -179,6 +179,7 @@ public:
         int len=s.size(),cnt=0;
         for(int i=0;i<len;i++)if(s[i]=='.')cnt++;
         if(cnt>1||s[0]=='.'||s[len-1]=='.')return -1;
+        if(cnt==1&&len>=3&&s[len-1]!='.'&&s[len-2]!='.'&&s[len-3]!='.')return -1;
         double num;ss>>num;
         if(ss>>s)return -1;
         return num;
