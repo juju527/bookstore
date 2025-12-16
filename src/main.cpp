@@ -6,7 +6,6 @@ using std::cin;
 string com;
 void format(){
     int len=com.size();
-    if(com[len-1]=='\r')com=com.substr(0,len-1);
     int p1=len+1,p2=-1;
     for(int i=0;i<len;i++)if(com[i]!=' '){p1=i;break;}
     for(int i=len-1;i>=0;i--)if(com[i]!=' '){p2=i;break;}
@@ -34,9 +33,12 @@ int main(){
     Command command;
     command.init();
     while(getline(cin,com)){
-        format();
-        if(com=="quit"||com=="exit")return 0;
-        else command.Run(com);
+        stringstream ss;ss<<com;
+        while(getline(ss,com,'\r')){
+            format();
+            if(com=="quit"||com=="exit")return 0;
+            else command.Run(com);
+        }
     }
     return 0;
 }
