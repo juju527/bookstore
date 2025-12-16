@@ -177,6 +177,12 @@ public:
         if(s.size()>13)return -1;
         stringstream ss;ss<<s;
         int len=s.size(),cnt=0;
+        for(int i=0;i<len;i++)if(!(s[i]>='0'&&s[i]<='9'||s[i]=='.'))return -1;
+        if(len==1){
+            if(s[0]=='.')return -1;
+            return s[0]-'0';
+        }
+        if(s[0]=='0'&&s[1]!='.')return -1;
         for(int i=0;i<len;i++)if(s[i]=='.')cnt++;
         if(cnt>1||s[0]=='.'||s[len-1]=='.')return -1;
         if(cnt==1&&len>=3&&s[len-1]!='.'&&s[len-2]!='.'&&s[len-3]!='.')return -1;
