@@ -22,7 +22,6 @@ public:
     void Run(string s){
         if(!s.size())return ;
         //cerr<<s<<endl;
-        if(s.substr(0,4)=="quit"||s.substr(0,4)=="exit")exit(0);
         if(s.size()>=12&&s.substr(0,12)=="show finance")Runshowfinance(s);
         else if(s.size()>=6&&s.substr(0,6)=="logout")Runlogout(s);
         else if(s.size()>=3&&s.substr(0,3)=="log")Runlog(s);

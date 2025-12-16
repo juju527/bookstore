@@ -2,15 +2,8 @@
 #include "Account.hpp"
 #include "Book.hpp"
 #include "Log.hpp"
+using std::cin;
 string com;
-bool read(){
-    com="";char ch;
-    while(std::cin.get(ch)){
-        if(ch=='\r'||ch=='\n')return 1;
-        com+=ch;
-    }
-    return false;
-}
 void format(){
     int len=com.size();
     int p1=len+1,p2=-1;
@@ -24,16 +17,10 @@ int main(){
     std::cin.tie(nullptr), std::cout.tie(nullptr);
     Command command;
     command.init();
-    while(1){
-        bool tag=read();
-        if(!com.size()){
-            if(!tag)return 0;
-            continue;
-        }
+    while(getline(cin,com)){
         format();
         if(com=="quit"||com=="exit")return 0;
         else command.Run(com);
-        if(!tag)return 0;
     }
     return 0;
 }
