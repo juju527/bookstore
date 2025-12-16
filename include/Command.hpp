@@ -172,6 +172,7 @@ public:
         if(s.size()>10)return -1;
         long long num=0;
         int len=s.size();
+        if(len>1&&s[0]=='0')return -1;
         for(int i=0;i<len;i++)if(s[i]<'0'||s[i]>'9')return -1;else num=num*10+s[i]-'0';
         if(num>2147483647)return -1;
         return num;
@@ -179,6 +180,9 @@ public:
     double chk7(string s){//Price
         if(s.size()>13)return -1;
         stringstream ss;ss<<s;
+        int len=s.size(),cnt=0;
+        for(int i=0;i<len;i++)if(s[i]=='.')cnt++;
+        if(cnt>1||s[0]=='.'||s[len-1]=='.')return -1;
         double num;ss>>num;
         if(ss>>s)return -1;
         return num;
