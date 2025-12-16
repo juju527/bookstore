@@ -54,7 +54,7 @@ public:
     bool chk3(string s){//Privilege
         if(s.size()>1)return 0;
         int len=s.size();
-        for(int i=0;i<len;i++)if(!(s[i]=='1'||s[i]=='3'||s[i]=='7'))return 0;
+        for(int i=0;i<len;i++)if(!(s[i]=='0'||s[i]=='1'||s[i]=='3'||s[i]=='7'))return 0;
         return 1;
     }
 
