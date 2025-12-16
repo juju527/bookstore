@@ -67,6 +67,7 @@ public:
         if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)||!chk1(Password)){Invalid();return ;}
         if(!account.login(UserID,Password)){Invalid();return ;}
+        book.select(-1);
         return ;
     }
     void Runlogout(string s){
