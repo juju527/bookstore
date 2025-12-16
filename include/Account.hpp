@@ -31,6 +31,7 @@ public:
         Account root(UserID,Password,UserID,7);
         auto res=BL.find(root.UserID);
         if(!res.size())BL.ins(root.UserID,root);
+        UserStack.clear();
         return ;
     }
     ~AccountStorage() = default;
