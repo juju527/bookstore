@@ -49,6 +49,8 @@ public:
         BL2.init("BookName");
         BL3.init("Author");
         BL4.init("Keyword");
+        selected=0,current=-1;
+        return ;
     }
     ~BookStorage() = default;
     void query(){
