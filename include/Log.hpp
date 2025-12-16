@@ -119,7 +119,7 @@ public:
         financeStorage.open();
         int num=0;
         financeStorage.get_info(num,1);
-        cerr<<"!"<<num<<endl;
+        //cerr<<"!"<<num<<endl;
         Finance lst;
         if(num)financeStorage.readorder(lst,num);
         cout<<lst<<endl;
@@ -131,7 +131,7 @@ public:
         financeStorage.open();
         int num=0;
         financeStorage.get_info(num,1);
-        cerr<<num<<endl;
+        //cerr<<num<<endl;
         if(Count>num){financeStorage.close();return 0;}
         Finance R,L;
         financeStorage.readorder(R,num);

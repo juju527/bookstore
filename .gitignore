@@ -26,6 +26,7 @@
 *.exe~
 *.com
 *.scr
+code
 
 # 可执行文件（Linux/Mac）
 a.out        # GCC 默认输出文件
@@ -45,12 +46,18 @@ Debug/               # VS 调试版目录
 x64/                 # VS 64位编译目录
 Win32/               # VS 32位编译目录
 .vs/                 # VS 缓存目录
-CMakeCache.txt       # CMake 缓存文件
 CMakeFiles/          # CMake 生成的中间目录
 CMakeScripts/        # CMake 脚本目录
 CTestTestfile.cmake  # CTest 测试文件
 Makefile             # 自动生成的 Makefile（如果手动写的 Makefile 需保留，可加 !Makefile）
 Makefile.in          #  configure 生成的 Makefile 模板
+CMakeCache.txt       # CMake 缓存文件
+cmake_install.cmake
+out
+213.out
+testcases/
+scripts/
+Makefile
 
 # ==============================================
 # 3. IDE/编辑器配置文件
@@ -101,3 +108,6 @@ Makefile.in          #  configure 生成的 Makefile 模板
 .env          # 环境变量文件
 .DS_Store     # Mac 系统隐藏文件
 Thumbs.db     # Windows 缩略图缓存
+test.cpp
+run_tests
+run_tests:Zone.Identifier

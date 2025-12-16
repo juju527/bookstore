@@ -303,7 +303,7 @@ public:
         ss>>s;if(s!="finance"){Invalid();return ;}
         string Count;
         if(ss>>Count){
-            int num=chk6(Count);cerr<<"#"<<num<<endl;
+            int num=chk6(Count);//cerr<<"#"<<num<<endl;
             if(num<0){Invalid();return ;}
             if(!log.showFinance(num)){Invalid();return ;}
         }
