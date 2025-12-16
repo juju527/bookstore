@@ -136,19 +136,19 @@ public:
     }
 
     bool chk4(string s){//ISBN
-        if(s.size()>20)return 0;
+        if(s.size()>20||!s.size())return 0;
         int len=s.size();
         for(int i=0;i<len;i++)if(s[i]<32||s[i]>126)return 0;
         return 1;
     }
     bool chk5(string s){//BookName, Author
-        if(s.size()>60)return 0;
+        if(s.size()>60||!s.size())return 0;
         int len=s.size();
         for(int i=0;i<len;i++)if(!(s[i]>=32&&s[i]<=126&&s[i]!=34))return 0;
         return 1;
     }
     bool chkkey(string s){
-        if(s.size()>60)return 0;
+        if(s.size()>60||!s.size())return 0;
         int L=s.size();
         for(int i=0;i<L;i++)if(!(s[i]>=32&&s[i]<=126&&s[i]!=34))return 0;
         if(s[0]=='|'||s[s.size()-1]=='|')return 0;
