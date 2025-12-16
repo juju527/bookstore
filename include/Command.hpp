@@ -99,12 +99,10 @@ public:
         string UserID,CurrentPassword,NowPassword;
         if(!getline(ss,UserID,' ')){Invalid();return ;}
         if(!getline(ss,CurrentPassword,' ')){Invalid();return ;}
-        //cerr<<"hello"<<endl;
         if(!getline(ss,NowPassword,' ')){
             NowPassword=CurrentPassword,CurrentPassword="";
             if(account.getAccount().Privilege<7){Invalid();return ;}
         }
-        //cerr<<"qaq"<<endl;
         if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)||!chk1(CurrentPassword)||!chk1(NowPassword)){Invalid();return ;}
         if(!account.changePassword(UserID,CurrentPassword,NowPassword)){Invalid();return ;}
@@ -145,13 +143,13 @@ public:
     bool chk5(string s){//BookName, Author
         if(s.size()>60||!s.size())return 0;
         int len=s.size();
-        for(int i=0;i<len;i++)if(!(s[i]>=32&&s[i]<=126&&s[i]!=34))return 0;
+        for(int i=0;i<len;i++)if(!(s[i]>=32&&s[i]<=126&&s[i]!='\"'))return 0;
         return 1;
     }
     bool chkkey(string s){
         if(s.size()>60||!s.size())return 0;
         int L=s.size();
-        for(int i=0;i<L;i++)if(!(s[i]>=32&&s[i]<=126&&s[i]!=34))return 0;
+        for(int i=0;i<L;i++)if(!(s[i]>=32&&s[i]<=126&&s[i]!='\"'))return 0;
         if(s[0]=='|'||s[s.size()-1]=='|')return 0;
         for(int i=1;i<L-1;i++)if(s[i]=='|'&&s[i+1]=='|')return 0;
         string aux="",str[60];
@@ -217,7 +215,7 @@ public:
         if(!getline(ss,Quantity,' ')){Invalid();return ;}
         if(getline(ss,s,' ')){Invalid();return ;}
         int num=chk6(Quantity);
-        if(!chk4(ISBN)||num==-1){Invalid();return ;}
+        if(!chk4(ISBN)||num<=0){Invalid();return ;}
         double v=book.buy(ISBN,num);
         if(v==-1.0){Invalid();return ;}
         array<char,operlen> tmp;
