@@ -24,7 +24,7 @@ void format(){
         }
     }
     aux+=cur;
-    com=cur;
+    com=aux;
     return ;
 }
 int main(){
