@@ -32,7 +32,7 @@ int main(){
     std::cin.tie(nullptr), std::cout.tie(nullptr);
     Command command;
     command.init();
-    while(getline(cin,com)){
+    while(getline(cin,com,'\n','\r')){
         format();
         if(com=="quit"||com=="exit")return 0;
         else command.Run(com);
