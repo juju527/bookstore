@@ -59,12 +59,12 @@ public:
     }
 
     void Runsu(string s){
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="su"){Invalid();return ;}
         string UserID,Password="";
-        if(!(ss>>UserID)){Invalid();return ;}
-        ss>>Password;
-        if(ss>>s){Invalid();return ;}
+        if(!getline(ss,UserID,' ')){Invalid();return ;}
+        if(!getline(ss,Password,' '))Password="";
+        if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)||!chk1(Password)){Invalid();return ;}
         if(!account.login(UserID,Password)){Invalid();return ;}
         return ;
@@ -72,69 +72,65 @@ public:
     void Runlogout(string s){
         //cerr<<"@@@"<<endl;
         if(account.getAccount().Privilege<1){Invalid();return ;}
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="logout"){Invalid();return ;}
-        if(ss>>s){Invalid();return ;}
+        if(getline(ss,s,' ')){Invalid();return ;}
         if(!account.logout()){Invalid();return ;}
         book.select(account.getSelect());
         return ;
     }
     void Runregister(string s){
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="register"){Invalid();return ;}
         string UserID,Password,Username;
-        if(!(ss>>UserID)){Invalid();return ;}
-        if(!(ss>>Password)){Invalid();return ;}
-        if(!(ss>>Username)){Invalid();return ;}
-        if(ss>>s){Invalid();return ;}
+        if(!getline(ss,UserID,' ')){Invalid();return ;}
+        if(!getline(ss,Password,' ')){Invalid();return ;}
+        if(!getline(ss,Username,' ')){Invalid();return ;}
+        if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)||!chk1(Password)||!chk2(Username)){Invalid();return ;}
         if(!account.signup(UserID,Password,Username)){Invalid();return ;}
         return ;
     }
     void Runpasswd(string s){
         if(account.getAccount().Privilege<1){Invalid();return ;}
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="passwd"){Invalid();return ;}
         string UserID,CurrentPassword,NowPassword;
-        if(!(ss>>UserID)){Invalid();return ;}
-        if(!(ss>>CurrentPassword)){Invalid();return ;}
+        if(!getline(ss,UserID,' ')){Invalid();return ;}
+        if(!getline(ss,CurrentPassword,' ')){Invalid();return ;}
         //cerr<<"hello"<<endl;
-        if(!(ss>>NowPassword)){
+        if(!getline(ss,NowPassword,' ')){
             NowPassword=CurrentPassword,CurrentPassword="";
             if(account.getAccount().Privilege<7){Invalid();return ;}
         }
         //cerr<<"qaq"<<endl;
-        if(ss>>s){Invalid();return ;}
+        if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)||!chk1(CurrentPassword)||!chk1(NowPassword)){Invalid();return ;}
         if(!account.changePassword(UserID,CurrentPassword,NowPassword)){Invalid();return ;}
         return ;
     }
     void Runuseradd(string s){
         if(account.getAccount().Privilege<3){Invalid();return ;}
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="useradd"){Invalid();return ;}
         string UserID,Password,Privilege,Username;
-        if(!(ss>>UserID)){Invalid();return ;}
-        if(!(ss>>Password)){Invalid();return ;}
-        if(!(ss>>Privilege)){Invalid();return ;}
-        if(!(ss>>Username)){Invalid();return ;}
-        if(ss>>s){Invalid();return ;}
+        if(!getline(ss,UserID,' ')){Invalid();return ;}
+        if(!getline(ss,Password,' ')){Invalid();return ;}
+        if(!getline(ss,Privilege,' ')){Invalid();return ;}
+        if(!getline(ss,Username,' ')){Invalid();return ;}
+        if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)||!chk1(Password)||!chk3(Privilege)||!chk2(Username)){Invalid();return ;}
         if(!account.useradd(UserID,Password,Privilege[0]-'0',Username)){Invalid();return ;}
         return ;
     }
     void Rundelete(string s){
         if(account.getAccount().Privilege<7){Invalid();return ;}
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="delete"){Invalid();return ;}
-        //cerr<<"q1\n";
         string UserID;
-        if(!(ss>>UserID)){Invalid();return ;}
-        //cerr<<"q2\n";
-        if(ss>>s){Invalid();return ;}
-        //cerr<<"q3\n";
+        if(!getline(ss,UserID,' ')){Invalid();return ;}
+        if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)){Invalid();return ;}
-        //cerr<<"q4\n";
         if(!account.deleteUser(UserID)){Invalid();return ;}
         return ;
     }
@@ -190,11 +186,11 @@ public:
 
     void Runshow(string s){
         if(account.getAccount().Privilege<1){Invalid();return ;}
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="show"){Invalid();return ;}
-        if(!(ss>>s)){book.query();return ;}
+        if(!getline(ss,s,' ')){book.query();return ;}
         string tmp;
-        if(ss>>tmp){Invalid();return ;}
+        if(getline(ss,tmp,' ')){Invalid();return ;}
         bool tag=0;
         if(s.size()>=7&&s.substr(0,6)=="-ISBN=")tag=1,book.queryISBN(s.substr(6,s.size()-6));
         else if(s.size()>=9&&s.substr(0,7)=="-name=\""&&s.back()=='\"')tag=1,book.queryBookName(s.substr(7,s.size()-8));
@@ -206,12 +202,12 @@ public:
     void Runbuy(string s){
         if(account.getAccount().Privilege<1){Invalid();return ;}
         string oper=s;
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="buy"){Invalid();return ;}
         string ISBN,Quantity;
-        if(!(ss>>ISBN)){Invalid();return ;}
-        if(!(ss>>Quantity)){Invalid();return ;}
-        if(ss>>s){Invalid();return ;}
+        if(!getline(ss,ISBN,' ')){Invalid();return ;}
+        if(!getline(ss,Quantity,' ')){Invalid();return ;}
+        if(getline(ss,s,' ')){Invalid();return ;}
         int num=chk6(Quantity);
         if(!chk4(ISBN)||num==-1){Invalid();return ;}
         double v=book.buy(ISBN,num);
@@ -224,20 +220,20 @@ public:
     }
     void Runselect(string s){
         if(account.getAccount().Privilege<3){Invalid();return ;}
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="select"){Invalid();return ;}
         string ISBN;
-        if(!(ss>>ISBN)){Invalid();return ;}
-        if(ss>>s){Invalid();return ;}
+        if(!getline(ss,ISBN,' ')){Invalid();return ;}
+        if(getline(ss,s,' ')){Invalid();return ;}
         account.select(book.select(ISBN));
         return ;
     }
     void Runmodify(string s){
         if(account.getAccount().Privilege<3){Invalid();return ;}
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="modify"){Invalid();return ;}
         bool vis[5]={0};string str[5];double price;
-        while(ss>>s){
+        while(getline(ss,s,' ')){
             if(s.size()>=7&&s.substr(0,6)=="-ISBN="){
                 if(vis[0]){Invalid();return ;}
                 vis[0]=1,str[0]=s.substr(6,s.size()-6);
@@ -285,12 +281,12 @@ public:
     }
     void Runimport(string s){
         if(account.getAccount().Privilege<3){Invalid();return ;}
-        stringstream ss;ss<<s;ss>>s;
+        stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="import"){Invalid();return ;}
         string Quantity,TotalCost;
-        if(!(ss>>Quantity)){Invalid();return ;}
-        if(!(ss>>TotalCost)){Invalid();return ;}
-        if(ss>>s){Invalid();return ;}
+        if(!getline(ss,Quantity,' ')){Invalid();return ;}
+        if(!getline(ss,TotalCost,' ')){Invalid();return ;}
+        if(getline(ss,s,' ')){Invalid();return ;}
         int num=chk6(Quantity);
         double cost=chk7(TotalCost);
         if(num<=0||cost<=0){Invalid();return ;}
@@ -311,11 +307,11 @@ public:
     void Runshowfinance(string s){
         if(account.getAccount().Privilege<7){Invalid();return ;}
         stringstream ss;ss<<s;
-        ss>>s;if(s!="show"){Invalid();return ;}
-        ss>>s;if(s!="finance"){Invalid();return ;}
+        getline(ss,s,' ');if(s!="show"){Invalid();return ;}
+        getline(ss,s,' ');if(s!="finance"){Invalid();return ;}
         string Count;
-        if(ss>>Count){
-            int num=chk6(Count);//cerr<<"#"<<num<<endl;
+        if(getline(ss,Count,' ')){
+            int num=chk6(Count);
             if(num<0){Invalid();return ;}
             if(!log.showFinance(num)){Invalid();return ;}
         }
