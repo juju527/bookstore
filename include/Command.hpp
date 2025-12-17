@@ -217,7 +217,7 @@ public:
         int num=chk6(Quantity);
         if(!chk4(ISBN)||num<=0){Invalid();return ;}
         double v=book.buy(ISBN,num);
-        if(v==-1.0){Invalid();return ;}
+        if(v<0){Invalid();return ;}
         array<char,operlen> tmp;
         int len=oper.size();
         for(int i=0;i<len;i++)tmp[i]=oper[i];
@@ -264,7 +264,7 @@ public:
                 if(vis[4]){Invalid();return ;}
                 vis[4]=1,str[4]=s.substr(7,s.size()-7);
                 price=chk7(str[4]);
-                if(price==-1.0){Invalid();return ;}
+                if(price<0){Invalid();return ;}
             }
             else{Invalid();return ;}
         }
@@ -283,6 +283,7 @@ public:
         if(vis[4]){
             if(!book.modifyPrice(price)){Invalid();return ;}
         }
+        if(!vis[0]&&!vis[1]&&!vis[2]&&!vis[3]&&!vis[4]){Invalid();return ;}
         return ;
     }
     void Runimport(string s){

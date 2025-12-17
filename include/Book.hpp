@@ -17,7 +17,7 @@ public:
     String60 BookName,Author,Keyword;
     int number;
     double price;
-    Book(){number=price=0;}
+    Book(){Bookid=number=price=0;}
     Book(int id,String20 isbn,String60 bookname,String60 author,String60 keyword,int num,double pri){
         Bookid=id,ISBN=isbn,BookName=bookname,Author=author,Keyword=keyword,number=num,price=pri;
     }
@@ -136,7 +136,6 @@ public:
         books.readorder(cur,res[0]);
         if(cur.number<quantity){books.close();return -1;}
         cout<<fixed<<setprecision(2)<<cur.price*quantity<<endl;
-//        if(cur.price*quantity==29.29)cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!$$$"<<ISBN<<" "<<cur.number<<" "<<quantity<<endl;
         cur.number-=quantity;books.writeorder(cur,res[0]);
         books.close();
         return cur.price*quantity;

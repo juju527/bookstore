@@ -30,7 +30,7 @@ public:
     int len;
     array<char,operlen> Operation;
     Finance finance;
-    FinanceInfo(){}
+    FinanceInfo(){len=0;}
     FinanceInfo(String30 userid,int l,array<char,operlen> oper,Finance fin){UserID=userid,len=l,Operation=oper,finance=fin;}
     friend std::ostream& operator <<(std::ostream &out,const FinanceInfo &f){
         out<<f.UserID<<" ";
@@ -44,7 +44,7 @@ public:
     String30 UserID;
     int len;
     array<char,operlen> Operation;
-    LogInfo(){}
+    LogInfo(){len=0;}
     LogInfo(String30 userid,int l,array<char,operlen> oper){UserID=userid,len=l,Operation=oper;}
     friend std::ostream& operator <<(std::ostream &out, const LogInfo &log){
         out<<log.UserID<<" ";
@@ -56,7 +56,7 @@ class EmployeeLog {
 public:
     int tim;
     LogInfo log;
-    EmployeeLog(){}
+    EmployeeLog(){tim=0;}
     EmployeeLog(int t,LogInfo l){tim=t,log=l;}
     friend std::ostream& operator <<(std::ostream &out, const EmployeeLog &emp){
         out<<emp.tim<<" "<<emp.log;
@@ -75,7 +75,7 @@ public:
         financeStorage.initialise("Finance");
         financeInfoStorage.initialise("FinanceInfo");
         logStorage.initialise("Log");
-        employees.initialise("Empolyee");
+        employees.initialise("Employee");
         employees.open();
         int num=0;
         employees.get_info(num,1);
@@ -119,7 +119,6 @@ public:
         financeStorage.open();
         int num=0;
         financeStorage.get_info(num,1);
-        //cerr<<"!"<<num<<endl;
         Finance lst;
         if(num)financeStorage.readorder(lst,num);
         cout<<lst<<endl;
