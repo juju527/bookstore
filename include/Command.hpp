@@ -93,7 +93,6 @@ public:
         return ;
     }
     void Runpasswd(string s){
-        assert(0);
         if(account.getAccount().Privilege<1){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="passwd"){Invalid();return ;}
@@ -110,6 +109,7 @@ public:
         return ;
     }
     void Runuseradd(string s){
+        assert(0);
         if(account.getAccount().Privilege<3){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="useradd"){Invalid();return ;}
