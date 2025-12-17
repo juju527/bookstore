@@ -71,7 +71,6 @@ public:
         return ;
     }
     void Runlogout(string s){
-        //cerr<<"@@@"<<endl;
         if(account.getAccount().Privilege<1){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="logout"){Invalid();return ;}
@@ -191,7 +190,6 @@ public:
     }
 
     void Runshow(string s){
-        assert(0);
         if(account.getAccount().Privilege<1){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="show"){Invalid();return ;}
@@ -344,9 +342,11 @@ public:
         return ;
     }
     void Runlog(string s){
+        Invalid();
         return ;
     }
     void Runreport(string s){
+        Invalid();
         return ;
     }
 };
