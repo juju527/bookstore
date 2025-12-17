@@ -123,6 +123,7 @@ public:
         return ;
     }
     void Rundelete(string s){
+        assert(0);
         if(account.getAccount().Privilege<7){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="delete"){Invalid();return ;}
@@ -304,7 +305,6 @@ public:
         return ;
     }
     void Runimport(string s){
-        assert(0);
         if(account.getAccount().Privilege<3){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="import"){Invalid();return ;}
