@@ -94,16 +94,16 @@ public:
     void Runpasswd(string s){
         if(account.getAccount().Privilege<1){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
-        if(s!="passwd"){Invalid();return ;}
+        if(s!="passwd"){assert(0);Invalid();return ;}
         string UserID,CurrentPassword,NowPassword;
-        if(!getline(ss,UserID,' ')){Invalid();return ;}
-        if(!getline(ss,CurrentPassword,' ')){Invalid();return ;}
+        if(!getline(ss,UserID,' ')){assert(0);Invalid();return ;}
+        if(!getline(ss,CurrentPassword,' ')){assert(0);Invalid();return ;}
         if(!getline(ss,NowPassword,' ')){
             NowPassword=CurrentPassword,CurrentPassword="";
             if(account.getAccount().Privilege<7){Invalid();return ;}
         }
-        if(getline(ss,s,' ')){Invalid();return ;}
-        if(!chk1(UserID)||!chk1(CurrentPassword)||!chk1(NowPassword)){Invalid();return ;}
+        if(getline(ss,s,' ')){assert(0);Invalid();return ;}
+        if(!chk1(UserID)||!chk1(CurrentPassword)||!chk1(NowPassword)){assert(0);Invalid();return ;}
         if(!account.changePassword(UserID,CurrentPassword,NowPassword)){Invalid();return ;}
         return ;
     }
