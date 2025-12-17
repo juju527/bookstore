@@ -1,6 +1,7 @@
 #ifndef BLOCKLIST_HPP
 #define BLOCKLIST_HPP
 
+#include<cstring>
 #include<string>
 #include<vector>
 #include"MemoryRiver.hpp"
@@ -26,6 +27,7 @@ public:
         Data v[maxb];
         node(){
             nxt=len=0;
+            memset(v,0,sizeof(Data));
         }
     };
 private:

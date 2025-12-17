@@ -198,10 +198,27 @@ public:
         string tmp;
         if(getline(ss,tmp,' ')){Invalid();return ;}
         bool tag=0;
-        if(s.size()>=7&&s.substr(0,6)=="-ISBN=")tag=1,book.queryISBN(s.substr(6,s.size()-6));
-        else if(s.size()>=9&&s.substr(0,7)=="-name=\""&&s.back()=='\"')tag=1,book.queryBookName(s.substr(7,s.size()-8));
-        else if(s.size()>=11&&s.substr(0,9)=="-author=\""&&s.back()=='\"')tag=1,book.queryAuthor(s.substr(9,s.size()-10));
-        else if(s.size()>=12&&s.substr(0,10)=="-keyword=\""&&s.back()=='\"')tag=book.queryKeyword(s.substr(10,s.size()-11));
+        string str;
+        if(s.size()>=7&&s.substr(0,6)=="-ISBN="){
+            tag=1;str=s.substr(6,s.size()-6);
+            if(!chk4(str)){Invalid();return ;}
+            book.queryISBN(str);
+        }
+        else if(s.size()>=9&&s.substr(0,7)=="-name=\""&&s.back()=='\"'){
+            tag=1;str=s.substr(7,s.size()-8);
+            if(!chk5(str)){Invalid();return ;}
+            book.queryBookName(str);
+        }
+        else if(s.size()>=11&&s.substr(0,9)=="-author=\""&&s.back()=='\"'){
+            tag=1;str=s.substr(9,s.size()-10);
+            if(!chk5(str)){Invalid();return ;}
+            book.queryAuthor(str);
+        }
+        else if(s.size()>=12&&s.substr(0,10)=="-keyword=\""&&s.back()=='\"'){
+            str=s.substr(10,s.size()-11);
+            if(!chkkey(str)){Invalid();return ;}
+            tag=book.queryKeyword(str);
+        }
         if(!tag){Invalid();return ;}
         return ;
     }
