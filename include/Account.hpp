@@ -22,7 +22,7 @@ public:
 };
 class AccountStorage{
 private:
-    BlockList<String30,Account,200,400,500> BL; // UserID -> Account class
+    BlockList<String30,Account,50,200,205> BL; // UserID -> Account class
     vector<pair<Account,int>> UserStack;
 public:
     void initialize(){

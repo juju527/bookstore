@@ -36,10 +36,10 @@ public:
 class BookStorage{
 private:
     MemoryRiver<Book,1> books;
-    BlockList<String20,int,200,500,505> BL1; // ISBN -> Bookid
-    BlockList<String60,int,200,500,505> BL2; // BookName -> Bookid
-    BlockList<String60,int,200,500,505> BL3; // Author -> Bookid
-    BlockList<String60,int,400,1000,1005> BL4; // Keyword -> Bookid
+    BlockList<String20,int,80,200,205> BL1; // ISBN -> Bookid
+    BlockList<String60,int,80,200,205> BL2; // BookName -> Bookid
+    BlockList<String60,int,80,200,205> BL3; // Author -> Bookid
+    BlockList<String60,int,80,200,205> BL4; // Keyword -> Bookid
     bool selected;
     int current;
 public:
