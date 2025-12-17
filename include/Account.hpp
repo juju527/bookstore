@@ -55,8 +55,7 @@ public:
             if(!(res[0].Password==Password))return 0;
         }
         else{
-            if(!UserStack.size())return 0;
-            if(UserStack.back().first.Privilege<=res[0].Privilege)return 0;
+            if(getAccount().Privilege<=res[0].Privilege)return 0;
         }
         UserStack.emplace_back(make_pair(res[0],-1));
         return 1;
@@ -77,7 +76,7 @@ public:
         auto res=BL.find(UserID);
         if(!res.size())return 0;
         if(!CurrentPassword.getlen()){
-            if(!UserStack.size()||UserStack.back().first.Privilege<7)return 0;
+            if(getAccount().Privilege<7)return 0;
         }
         else{
             if(!(CurrentPassword==res[0].Password))return 0;
@@ -86,7 +85,7 @@ public:
         return 1;
     }
     bool useradd(String30 UserID,String30 Password,int Privilege,String30 Username){
-        if(!UserStack.size()||UserStack.back().first.Privilege<=Privilege)return 0;
+        if(getAccount().Privilege<=Privilege)return 0;
         auto res=BL.find(UserID);
         if(res.size())return 0;
         Account acc(UserID,Password,Username,Privilege);

@@ -169,7 +169,7 @@ public:
         int len=s.size();
         if(len>1&&s[0]=='0')return -1;
         for(int i=0;i<len;i++)if(s[i]<'0'||s[i]>'9')return -1;else num=num*10+s[i]-'0';
-        if(num>2147483647)return -1;
+        if(num>2147483647ll)return -1;
         return num;
     }
     double chk7(string s){//Price
@@ -223,7 +223,6 @@ public:
         return ;
     }
     void Runbuy(string s){
-        assert(0);
         if(account.getAccount().Privilege<1){Invalid();return ;}
         string oper=s;
         stringstream ss;ss<<s;getline(ss,s,' ');
@@ -243,6 +242,7 @@ public:
         return ;
     }
     void Runselect(string s){
+        assert(0);
         if(account.getAccount().Privilege<3){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="select"){Invalid();return ;}
