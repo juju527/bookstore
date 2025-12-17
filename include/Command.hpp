@@ -191,6 +191,7 @@ public:
     }
 
     void Runshow(string s){
+        assert(0);
         if(account.getAccount().Privilege<1){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="show"){Invalid();return ;}
@@ -252,7 +253,6 @@ public:
         return ;
     }
     void Runmodify(string s){
-        assert(0);
         if(account.getAccount().Privilege<3){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="modify"){Invalid();return ;}
