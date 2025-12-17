@@ -2,6 +2,7 @@
 #define STRING_HPP
 #include<array>
 #include<string>
+#include<cassert>
 using std::array;
 class String20{
 private:
@@ -10,7 +11,7 @@ private:
 public:
     String20(){len=0;}
     String20(std::string s){
-        len=s.length();
+        len=s.length();assert(len<=20);
         for(int i=0;i<len;i++)str[i]=s[i];
     }
     int getlen(){return len;}
@@ -36,7 +37,7 @@ private:
 public:
     String30(){len=0;}
     String30(std::string s){
-        len=s.length();
+        len=s.length();assert(len<=30);
         for(int i=0;i<len;i++)str[i]=s[i];
     }
     int getlen(){return len;}
@@ -62,7 +63,7 @@ private:
 public:
     String60(){len=0;}
     String60(std::string s){
-        len=s.length();
+        len=s.length();assert(len<=60);
         for(int i=0;i<len;i++)str[i]=s[i];
     }
     int getlen(){return len;}
