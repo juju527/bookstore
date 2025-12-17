@@ -242,7 +242,6 @@ public:
         return ;
     }
     void Runselect(string s){
-        assert(0);
         if(account.getAccount().Privilege<3){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="select"){Invalid();return ;}
@@ -253,6 +252,7 @@ public:
         return ;
     }
     void Runmodify(string s){
+        assert(0);
         if(account.getAccount().Privilege<3){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="modify"){Invalid();return ;}
