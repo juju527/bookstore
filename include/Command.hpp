@@ -93,6 +93,7 @@ public:
         return ;
     }
     void Runpasswd(string s){
+        assert(0);
         if(account.getAccount().Privilege<1){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="passwd"){Invalid();return ;}
@@ -123,7 +124,6 @@ public:
         return ;
     }
     void Rundelete(string s){
-        assert(0);
         if(account.getAccount().Privilege<7){Invalid();return ;}
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="delete"){Invalid();return ;}
