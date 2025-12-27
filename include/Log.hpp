@@ -58,6 +58,7 @@ public:
     LogInfo log;
     EmployeeLog(){tim=0;}
     EmployeeLog(int t,LogInfo l){tim=t,log=l;}
+    bool operator <(EmployeeLog tmp)const{return tim<tmp.tim;}
     friend std::ostream& operator <<(std::ostream &out, const EmployeeLog &emp){
         out<<emp.tim<<" "<<emp.log;
         return out;
@@ -85,6 +86,7 @@ public:
             employees.writeorder(str,1);
         }
         employees.close();
+        BL.init("EmployLog");
         return ;
     }
     void addFinance(double inc,double exp,String30 userid,int len,array<char,operlen> oper){
@@ -111,10 +113,26 @@ public:
         return ;
     }
     void addEmployeeLog(String30 userid,int len,array<char,operlen> oper){
-
+        int tim=0;
+        employees.open();
+        employees.get_info(tim,2);tim++;
+        employees.write_info(tim,2);
+        employees.close();
+        LogInfo aux(userid,len,oper);
+        EmployeeLog info(tim,aux);
+        BL.ins(userid,info);
+        auto v=BL.find(userid);
         return ;
     }
-    void addLog(String30,int,array<char,operlen>);
+    void addLog(String30 userid,int len,array<char,operlen> oper){
+        int pos=0;
+        logStorage.open();
+        logStorage.get_info(pos,1);
+        LogInfo info(userid,len,oper);
+        logStorage.writeorder(info,pos+1);
+        logStorage.close();
+        return ;
+    }
     void showFinance(){
         financeStorage.open();
         int num=0;
@@ -130,7 +148,6 @@ public:
         financeStorage.open();
         int num=0;
         financeStorage.get_info(num,1);
-        //cerr<<num<<endl;
         if(Count>num){financeStorage.close();return 0;}
         Finance R,L;
         financeStorage.readorder(R,num);
@@ -139,8 +156,50 @@ public:
         financeStorage.close();
         return 1;
     }
-    void showFinanceInfo();
-    void showEmployeeLog();
-    void showLog();
+    void showFinanceInfo(){
+        cout<<"Here is the finance report of the bookstore:"<<endl;
+        int len=0;
+        financeInfoStorage.open();
+        financeInfoStorage.get_info(len,1);
+        for(int i=1;i<=len;i++){
+            FinanceInfo info;
+            financeInfoStorage.readorder(info,i);
+            cout<<info<<endl;
+        }
+        cout<<"End of the finance report."<<endl;
+        financeInfoStorage.close();
+        return ;
+    }
+    void showEmployeeLog(){
+        cout<<"Here is the employee report of the bookstore:"<<endl;
+        int num=0;
+        employees.open();
+        employees.get_info(num,1);
+        for(int i=1;i<=num;i++){
+            String30 userid;
+            employees.readorder(userid,i);
+            cout<<"The log of "<<userid<<":"<<endl;
+            auto v=BL.find(userid);
+            for(auto info:v)cout<<info<<endl;
+            if(!v.size())cout<<"no operation"<<endl;
+        }
+        cout<<"End of the employee report."<<endl;
+        employees.close();
+        return ;
+    }
+    void showLog(){
+        cout<<"Here is the log of the bookstore:"<<endl;
+        int len=0;
+        logStorage.open();
+        logStorage.get_info(len,1);
+        for(int i=1;i<=len;i++){
+            LogInfo info;
+            logStorage.readorder(info,i);
+            cout<<info<<endl;
+        }
+        cout<<"End of the log."<<endl;
+        logStorage.close();
+        return ;
+    }
 };
 #endif

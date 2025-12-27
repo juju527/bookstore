@@ -58,7 +58,17 @@ public:
         return 1;
     }
 
+    void LOG(string S,String30 UserID){
+        int len=S.size();
+        array<char,operlen> oper;
+        for(int i=0;i<len;i++)oper[i]=S[i];
+        log.addLog(UserID,len,oper);
+        if(account.getAccount().Privilege>=3)log.addEmployeeLog(UserID,len,oper);
+        return ;
+    }
+
     void Runsu(string s){
+        string S=s;
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="su"){Invalid();return ;}
         string UserID,Password="";
@@ -68,18 +78,23 @@ public:
         if(!chk1(UserID)||!chk1(Password)){Invalid();return ;}
         if(!account.login(UserID,Password)){Invalid();return ;}
         book.select(-1);
+        LOG(S,UserID);
         return ;
     }
     void Runlogout(string s){
         if(account.getAccount().Privilege<1){Invalid();return ;}
+        string S=s;
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="logout"){Invalid();return ;}
         if(getline(ss,s,' ')){Invalid();return ;}
+        String30 UserID=account.getAccount().UserID;
         if(!account.logout()){Invalid();return ;}
         book.select(account.getSelect());
+        LOG(S,UserID);
         return ;
     }
     void Runregister(string s){
+        string S=s;
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="register"){Invalid();return ;}
         string UserID,Password,Username;
@@ -89,10 +104,12 @@ public:
         if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)||!chk1(Password)||!chk2(Username)){Invalid();return ;}
         if(!account.signup(UserID,Password,Username)){Invalid();return ;}
+        LOG(S,account.getAccount().UserID);
         return ;
     }
     void Runpasswd(string s){
         if(account.getAccount().Privilege<1){Invalid();return ;}
+        string S=s;
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="passwd"){Invalid();return ;}
         string UserID,CurrentPassword,NowPassword;
@@ -105,10 +122,12 @@ public:
         if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)||!chk1(CurrentPassword)||!chk1(NowPassword)){Invalid();return ;}
         if(!account.changePassword(UserID,CurrentPassword,NowPassword)){Invalid();return ;}
+        LOG(S,account.getAccount().UserID);
         return ;
     }
     void Runuseradd(string s){
         if(account.getAccount().Privilege<3){Invalid();return ;}
+        string S=s;
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="useradd"){Invalid();return ;}
         string UserID,Password,Privilege,Username;
@@ -119,10 +138,12 @@ public:
         if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)||!chk1(Password)||!chk3(Privilege)||!chk2(Username)){Invalid();return ;}
         if(!account.useradd(UserID,Password,Privilege[0]-'0',Username)){Invalid();return ;}
+        LOG(S,account.getAccount().UserID);
         return ;
     }
     void Rundelete(string s){
         if(account.getAccount().Privilege<7){Invalid();return ;}
+        string S=s;
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="delete"){Invalid();return ;}
         string UserID;
@@ -130,6 +151,7 @@ public:
         if(getline(ss,s,' ')){Invalid();return ;}
         if(!chk1(UserID)){Invalid();return ;}
         if(!account.deleteUser(UserID)){Invalid();return ;}
+        LOG(s,account.getAccount().UserID);
         return ;
     }
 
@@ -191,6 +213,7 @@ public:
 
     void Runshow(string s){
         if(account.getAccount().Privilege<1){Invalid();return ;}
+        string S=s;
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="show"){Invalid();return ;}
         if(!getline(ss,s,' ')){book.query();return ;}
@@ -219,6 +242,7 @@ public:
             tag=book.queryKeyword(str);
         }
         if(!tag){Invalid();return ;}
+        LOG(S,account.getAccount().UserID);
         return ;
     }
     void Runbuy(string s){
@@ -238,20 +262,24 @@ public:
         int len=oper.size();
         for(int i=0;i<len;i++)tmp[i]=oper[i];
         log.addFinance(v,0,account.getAccount().UserID,oper.size(),tmp);
+        LOG(oper,account.getAccount().UserID);
         return ;
     }
     void Runselect(string s){
         if(account.getAccount().Privilege<3){Invalid();return ;}
+        string S=s;
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="select"){Invalid();return ;}
         string ISBN;
         if(!getline(ss,ISBN,' ')){Invalid();return ;}
         if(getline(ss,s,' ')){Invalid();return ;}
         account.select(book.select(ISBN));
+        LOG(S,account.getAccount().UserID);
         return ;
     }
     void Runmodify(string s){
         if(account.getAccount().Privilege<3){Invalid();return ;}
+        string S=s;
         stringstream ss;ss<<s;getline(ss,s,' ');
         if(s!="modify"){Invalid();return ;}
         bool vis[5]={0};string str[5];double price;
@@ -300,6 +328,7 @@ public:
             if(!book.modifyPrice(price)){Invalid();return ;}
         }
         if(!vis[0]&&!vis[1]&&!vis[2]&&!vis[3]&&!vis[4]){Invalid();return ;}
+        LOG(S,account.getAccount().UserID);
         return ;
     }
     void Runimport(string s){
@@ -319,11 +348,13 @@ public:
         array<char,20> str=ISBN.getstr();
         int L=ISBN.getlen();
         for(int i=0;i<L;i++)oper+=str[i];
+        oper+=' ';
         oper+=Quantity+" "+TotalCost;
         array<char,operlen> tmp;
         int len=oper.size();
         for(int i=0;i<len;i++)tmp[i]=oper[i];
         log.addFinance(0,cost,account.getAccount().UserID,len,tmp);
+        LOG(oper,account.getAccount().UserID);
         return ;
     }
 
@@ -342,11 +373,23 @@ public:
         return ;
     }
     void Runlog(string s){
-        Invalid();
+        if(account.getAccount().Privilege<7){Invalid();return ;}
+        stringstream ss;ss<<s;
+        getline(ss,s,' ');if(s!="log"){Invalid();return ;}
+        if(getline(ss,s,' ')){Invalid();return ;}
+        log.showLog();
         return ;
     }
     void Runreport(string s){
-        Invalid();
+        if(account.getAccount().Privilege<7){Invalid();return ;}
+        stringstream ss;ss<<s;
+        getline(ss,s,' ');if(s!="report"){Invalid();return ;}
+        getline(ss,s,' ');
+        string tmp;
+        if(getline(ss,tmp,' ')){Invalid();return ;}
+        if(s=="finance")log.showFinanceInfo();
+        else if(s=="employee")log.showEmployeeLog();
+        else Invalid();
         return ;
     }
 };
